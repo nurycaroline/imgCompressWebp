@@ -7,14 +7,17 @@
   "scripts": {
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node build/index.js",
-    "dev": "tsx watch src/index.ts"
+    "dev:watch": "tsx watch src/index.ts",
+    "dev": "tsx src/index.ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/commander": "^2.12.2",
     "@types/imagemin": "^9.0.0",
     "@types/imagemin-webp": "^7.0.3",
     "@types/node": "^22.5.0",
+    "commander": "^12.1.0",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.17.0",
