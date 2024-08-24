@@ -5,10 +5,10 @@ import * as Commander from "commander";
 
 type OptimizeImagesArgs = {
   destination: string;
-  origem: string;
+  origin: string;
 };
-async function optimizeImages({ destination, origem }: OptimizeImagesArgs) {
-  return await imagemin([`${origem}/*.{jpg,png,webp,gif}`], {
+async function optimizeImages({ destination, origin }: OptimizeImagesArgs) {
+  return await imagemin([`${origin}/*.{jpg,png,webp,gif}`], {
     destination: destination,
     plugins: [
       imageminWebp({
@@ -27,19 +27,19 @@ function getDirectories(path: string) {
 }
 
 function checkParametersExistsAndAreValidFolders(options: any) {
-  const { destination, origem } = options;
+  const { destination, origin } = options;
 
-  if (!destination || !origem) {
-    throw new Error("You need to pass destination and origem parameters");
+  if (!destination || !origin) {
+    throw new Error("You need to pass destination and origin parameters");
   }
 
-  if (!fs.existsSync(destination) || !fs.existsSync(origem)) {
+  if (!fs.existsSync(destination) || !fs.existsSync(origin)) {
     throw new Error("The folders do not exist");
   }
 
   if (
     !fs.statSync(destination).isDirectory() ||
-    !fs.statSync(origem).isDirectory()
+    !fs.statSync(origin).isDirectory()
   ) {
     throw new Error("The parameters need to be folders");
   }
@@ -50,18 +50,18 @@ function getParameters() {
     Commander.program
       .version("0.0.1")
       .option("-d, --destination <destination>", "Destination")
-      .option("-o, --origem <origem>", "Origem")
+      .option("-o, --origin <origin>", "Origin")
       .parse(process.argv);
     Commander.program.parse();
 
     const options = Commander.program.opts();
     checkParametersExistsAndAreValidFolders(options);
 
-    const { destination, origem } = options;
+    const { destination, origin } = options;
 
     console.log({ options });
 
-    return { destination, origem };
+    return { destination, origin };
   } catch (error : any) {
     console.error(error.message);
     process.exit(1);
@@ -69,17 +69,17 @@ function getParameters() {
 }
 
 (async () => {
-  const { destination, origem } = getParameters();
+  const { destination, origin } = getParameters();
 
   try {
-    const directories = getDirectories(origem);
+    const directories = getDirectories(origin);
     console.log({ directories });
 
     await Promise.all(
       directories.map(async (directory) => {
         await optimizeImages({
           destination: `${destination}/${directory}`,
-          origem: `${origem}/${directory}`,
+          origin: `${origin}/${directory}`,
         });
       })
     );
