@@ -1,0 +1,27 @@
+{
+  "name": "imgcompresswebp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "rimraf ./build && tsc",
+    "start": "npm run build && node build/index.js",
+    "dev": "tsx watch src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/imagemin": "^9.0.0",
+    "@types/imagemin-webp": "^7.0.3",
+    "@types/node": "^22.5.0",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.17.0",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "imagemin": "^9.0.0",
+    "imagemin-webp": "^8.0.0"
+  }
+}
